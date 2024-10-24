@@ -10,13 +10,18 @@ namespace GreaterGrades.Repositories
     public class ClassRepository : IClassRepository
     {
         private readonly IStorageService _storageService;
-        private readonly string _filePath = "data/classes.json";
+        
+        private string _dataDirectory = Path.Combine(AppContext.BaseDirectory, "data");
+
+        private string _filePath;
         private List<Class> _classes;
 
         public ClassRepository(IStorageService storageService)
         {
             _storageService = storageService;
             _classes = _storageService.LoadData<Class>();
+            _filePath = Path.Combine(_dataDirectory, "classes.json");
+
         }
 
         public IEnumerable<Class> GetAll()

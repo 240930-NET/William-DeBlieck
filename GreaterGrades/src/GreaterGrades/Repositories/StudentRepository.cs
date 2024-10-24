@@ -10,7 +10,6 @@ namespace GreaterGrades.Repositories
     public class StudentRepository : IStudentRepository
     {
         private readonly IStorageService _storageService;
-        private readonly string _filePath = "data/students.json";
         private List<Student> _students;
 
         public StudentRepository(IStorageService storageService)
@@ -18,7 +17,6 @@ namespace GreaterGrades.Repositories
             _storageService = storageService;
             _students = _storageService.LoadData<Student>();
         }
-
         public IEnumerable<Student> GetAll()
         {
             return _students;
@@ -42,6 +40,8 @@ namespace GreaterGrades.Repositories
             {
                 existing.FirstName = student.FirstName;
                 existing.LastName = student.LastName;
+                existing.Grades = student.Grades;
+                existing.Classes = student.Classes;
                 // Update other properties as needed
                 _storageService.SaveData(_students);
             }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {}
+    "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {}
   },
   "projects": {
-    "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {
+    "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
+        "projectUniqueName": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
         "projectName": "GreaterGrades",
-        "projectPath": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
+        "projectPath": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
         "packagesPath": "C:\\Users\\William\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\obj\\",
+        "outputPath": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\William\\AppData\\Roaming\\NuGet\\NuGet.Config"

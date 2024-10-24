@@ -26,3 +26,4 @@ C:\Users\William\revature\GreaterGrades\src\GreaterGrades\obj\Debug\net8.0\refin
 C:\Users\William\revature\GreaterGrades\src\GreaterGrades\obj\Debug\net8.0\GreaterGrades.pdb
 C:\Users\William\revature\GreaterGrades\src\GreaterGrades\obj\Debug\net8.0\GreaterGrades.genruntimeconfig.cache
 C:\Users\William\revature\GreaterGrades\src\GreaterGrades\obj\Debug\net8.0\ref\GreaterGrades.dll
+C:\Users\William\revature\GreaterGrades\src\GreaterGrades\obj\Debug\net8.0\GreaterGrades.sourcelink.json

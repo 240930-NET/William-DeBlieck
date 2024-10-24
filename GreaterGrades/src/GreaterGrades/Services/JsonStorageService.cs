@@ -9,17 +9,22 @@ namespace GreaterGrades.Services
     public class JsonStorageService : IStorageService
     {
         private readonly string _filePath;
-
+        
         public JsonStorageService(string filePath)
         {
+
             _filePath = filePath;
+            Console.WriteLine(_filePath);
         }
 
         public List<T> LoadData<T>()
         {
             if (!File.Exists(_filePath))
             {
+                //Console.WriteLine("FILE NOT FOUND");
+                //Console.WriteLine(_filePath);
                 return new List<T>();
+    
             }
 
             string json = File.ReadAllText(_filePath);

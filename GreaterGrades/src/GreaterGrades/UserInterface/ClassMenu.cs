@@ -1,7 +1,7 @@
 // src/GreaterGrades/UserInterface/ClassMenu.cs
 using System;
 using GreaterGrades.Repositories;
-using GreaterGrades.UserInterface.Edit;
+using GreaterGrades.UserInterface.ClassEdit;
 using GreaterGrades.Models;
 
 namespace GreaterGrades.UserInterface
@@ -9,12 +9,17 @@ namespace GreaterGrades.UserInterface
     public class ClassMenu
     {
         private readonly IClassRepository _classRepository;
+        private readonly IStudentRepository _studentRepository;
         private readonly ClassEditMenu _classEditMenu;
+        private readonly IAssignmentRepository _assignmentRepository;
+        private readonly IGradeRepository _gradeRepository;
 
-        public ClassMenu(IClassRepository classRepository)
-        {
+        public ClassMenu(IClassRepository classRepository, IStudentRepository studentRepository, IAssignmentRepository assignmentRepository, IGradeRepository gradeRepository){
             _classRepository = classRepository;
-            _classEditMenu = new ClassEditMenu(_classRepository);
+            _studentRepository = studentRepository;
+            _assignmentRepository = assignmentRepository;
+            _gradeRepository = gradeRepository;
+            _classEditMenu = new ClassEditMenu(_classRepository, _studentRepository, _assignmentRepository, _gradeRepository);
         }
 
         public void DisplayClassMenu()
@@ -38,23 +43,49 @@ namespace GreaterGrades.UserInterface
                         CreateClass();
                         break;
                     case "2":
-                        Console.Write("Enter Class ID to edit: ");
-                        var idInput = Console.ReadLine();
-                        if (Guid.TryParse(idInput, out Guid classId))
+                        Console.Clear();
+                        Console.WriteLine("=== Select Class to Edit ===");
+
+                        var allClasses = _classRepository.GetAll().ToList();
+                        if (!allClasses.Any())
                         {
-                            _classEditMenu.DisplayEditMenu(classId);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Invalid ID format. Press any key to return.");
+                            Console.WriteLine("No classes available to edit. Press any key to return.");
                             Console.ReadKey();
+                            return;
                         }
+
+                        // Sort classes alphabetically by Subject (or another criterion if needed)
+                        allClasses = allClasses.OrderBy(c => c.Subject).ToList();
+
+                        Console.WriteLine("Available Classes:");
+                        for (int i = 0; i < allClasses.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. Subject: {allClasses[i].Subject}");
+                        }
+
+                        Console.Write("Enter the number of the class to edit: ");
+                        var classNumberInput = Console.ReadLine();
+
+                        if (!int.TryParse(classNumberInput, out int classNumber) || classNumber < 1 || classNumber > allClasses.Count)
+                        {
+                            Console.WriteLine("Invalid number. Press any key to return.");
+                            Console.ReadKey();
+                            return;
+                        }
+
+                        var classToEdit = allClasses[classNumber - 1];
+
+                        // Call the edit menu with the selected class ID
+                        _classEditMenu.DisplayClassEditMenu(classToEdit.Id);
+
+                        Console.ReadKey();
+
                         break;
                     case "3":
-                        // DeleteClass();
+                        DeleteClass();
                         break;
                     case "4":
-                        // ViewAllClasses();
+                        ViewAllClasses();
                         break;
                     case "5":
                         return;
@@ -76,6 +107,50 @@ namespace GreaterGrades.UserInterface
             _classRepository.Add(newClass);
 
             Console.WriteLine("Class added successfully! Press any key to return.");
+            Console.ReadKey();
+        }
+
+        private void DeleteClass()
+        {
+            Console.Clear();
+            Console.WriteLine("=== Delete Class ===");
+            Console.Write("Enter Class ID: ");
+            var idInput = Console.ReadLine();
+
+            if (Guid.TryParse(idInput, out Guid classId))
+            {
+                var existingClass = _classRepository.GetById(classId);
+                if (existingClass != null)
+                {
+                    _classRepository.Delete(classId);
+                    Console.WriteLine("Class deleted successfully! Press any key to return.");
+                }
+                else
+                {
+                    Console.WriteLine("Class not found. Press any key to return.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid ID format. Press any key to return.");
+            }
+
+            Console.ReadKey();
+        }
+
+        private void ViewAllClasses()
+        {
+            Console.Clear();
+            Console.WriteLine("=== All Classes ===");
+
+            var existingClasses = _classRepository.GetAll();
+
+            foreach (var existingClass in existingClasses)
+            {
+                Console.WriteLine($"ID: {existingClass.Id} | Subject: {existingClass.Subject}");
+            }
+
+            Console.WriteLine("Press any key to return.");
             Console.ReadKey();
         }
 

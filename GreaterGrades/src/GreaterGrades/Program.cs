@@ -11,15 +11,21 @@ namespace GreaterGrades
         static void Main(string[] args)
         {
             // Initialize storage service
-            var storageService = new JsonStorageService("data/students.json"); // Example for students
+            var studentsStorageService = new JsonStorageService("data/students.json");
+            var classesStorageService = new JsonStorageService("data/classes.json");
+            var assignmentStorageService = new JsonStorageService("data/assignments.json");
+            var gradeStorageService = new JsonStorageService("data/grades.json");
+
 
             // Initialize repositories
-            var studentRepository = new StudentRepository(storageService);
-            var classRepository = new ClassRepository(storageService);
+            var studentRepository = new StudentRepository(studentsStorageService);
+            var classRepository = new ClassRepository(classesStorageService);
+            var assignmentRepository = new AssignmentRepository(assignmentStorageService);
+            var gradeRepository = new GradeRepository(gradeStorageService);
 
             // Initialize user interface
             var studentMenu = new StudentMenu(studentRepository);
-            var classMenu = new ClassMenu(classRepository);
+            var classMenu = new ClassMenu(classRepository, studentRepository, assignmentRepository, gradeRepository);
 
             var menu = new Menu(studentMenu, classMenu);
 
