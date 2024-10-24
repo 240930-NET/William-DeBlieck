@@ -62,7 +62,7 @@ namespace GreaterGrades.UserInterface
             Console.Write("Last Name: ");
             var lastName = Console.ReadLine();
 
-            var student = new Student(firstName, lastName);
+            var student = new Student(firstName!, lastName!);
             _studentRepository.Add(student);
 
             Console.WriteLine("Student added successfully! Press any key to return.");

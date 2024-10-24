@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {}
+    "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {}
   },
   "projects": {
-    "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {
+    "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
+        "projectUniqueName": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
         "projectName": "GreaterGrades",
-        "projectPath": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
+        "projectPath": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\GreaterGrades.csproj",
         "packagesPath": "C:\\Users\\William\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\obj\\",
+        "outputPath": "C:\\Users\\William\\revature\\GreaterGrades\\src\\GreaterGrades\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\William\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -42,6 +42,12 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

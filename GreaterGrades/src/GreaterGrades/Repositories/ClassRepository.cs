@@ -31,7 +31,7 @@ namespace GreaterGrades.Repositories
 
         public Class GetById(Guid id)
         {
-            return _classes.FirstOrDefault(s => s.Id == id);
+            return _classes.FirstOrDefault(s => s.Id == id)!;
         }
 
         public void Add(Class newClass)
@@ -46,7 +46,6 @@ namespace GreaterGrades.Repositories
             if (existing != null)
             {
                 existing.Subject = existingClass.Subject;
-                existing.Assignments = existingClass.Assignments;
                 existing.Students = existingClass.Students;
                 // Update other properties as needed
                 _storageService.SaveData(_classes);

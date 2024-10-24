@@ -24,7 +24,7 @@ namespace GreaterGrades.Repositories
 
         public Student GetById(Guid id)
         {
-            return _students.FirstOrDefault(s => s.Id == id);
+            return _students.FirstOrDefault(s => s.Id == id)!;
         }
 
         public void Add(Student student)
@@ -40,8 +40,6 @@ namespace GreaterGrades.Repositories
             {
                 existing.FirstName = student.FirstName;
                 existing.LastName = student.LastName;
-                existing.Grades = student.Grades;
-                existing.Classes = student.Classes;
                 // Update other properties as needed
                 _storageService.SaveData(_students);
             }

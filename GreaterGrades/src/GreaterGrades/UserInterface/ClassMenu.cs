@@ -103,7 +103,7 @@ namespace GreaterGrades.UserInterface
             Console.WriteLine("=== Create New Class ===");
             Console.Write("Subject: ");
             var subject = Console.ReadLine();
-            var newClass = new Class(subject);
+            var newClass = new Class(subject!);
             _classRepository.Add(newClass);
 
             Console.WriteLine("Class added successfully! Press any key to return.");
@@ -114,26 +114,31 @@ namespace GreaterGrades.UserInterface
         {
             Console.Clear();
             Console.WriteLine("=== Delete Class ===");
-            Console.Write("Enter Class ID: ");
-            var idInput = Console.ReadLine();
+            Console.Write("Select Class to delete: ");
+            // Sort classes alphabetically by Subject (or another criterion if needed)
+            List<Class> allClasses = _classRepository.GetAll().ToList();
+            allClasses = allClasses.OrderBy(c => c.Subject).ToList();
 
-            if (Guid.TryParse(idInput, out Guid classId))
+            Console.WriteLine("Available Classes:");
+            for (int i = 0; i < allClasses.Count; i++)
             {
-                var existingClass = _classRepository.GetById(classId);
-                if (existingClass != null)
-                {
-                    _classRepository.Delete(classId);
-                    Console.WriteLine("Class deleted successfully! Press any key to return.");
-                }
-                else
-                {
-                    Console.WriteLine("Class not found. Press any key to return.");
-                }
+                Console.WriteLine($"{i + 1}. Subject: {allClasses[i].Subject}");
             }
-            else
+
+            Console.Write("Enter the number of the class to edit: ");
+            var classNumberInput = Console.ReadLine();
+
+            if (!int.TryParse(classNumberInput, out int classNumber) || classNumber < 1 || classNumber > allClasses.Count)
             {
-                Console.WriteLine("Invalid ID format. Press any key to return.");
+                Console.WriteLine("Invalid number. Press any key to return.");
+                Console.ReadKey();
+                return;
             }
+
+            var classTodelete = allClasses[classNumber - 1];
+            _classRepository.Delete(classTodelete.Id);
+
+            Console.WriteLine("Class deleted successfully! Press any key to return.");
 
             Console.ReadKey();
         }

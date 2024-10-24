@@ -24,7 +24,7 @@ namespace GreaterGrades.Repositories
 
         public Assignment GetById(Guid id)
         {
-            return _assignments.FirstOrDefault(a => a.Id == id);
+            return _assignments.FirstOrDefault(a => a.Id == id)!;
         }
 
         public void Add(Assignment assignment)
@@ -40,7 +40,6 @@ namespace GreaterGrades.Repositories
             {
                 existing.Name = assignment.Name;
                 existing.MaxScore = assignment.MaxScore;
-                existing.Grades = assignment.Grades; // Update grades
                 _storageService.SaveData(_assignments);
             }
         }

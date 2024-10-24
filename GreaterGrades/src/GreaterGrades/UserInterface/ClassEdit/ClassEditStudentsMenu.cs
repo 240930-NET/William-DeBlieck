@@ -98,7 +98,7 @@ namespace GreaterGrades.UserInterface.ClassEdit
                 return;
             }
 
-            if (!classToUpdate.AddStudent(studentToAdd.Id, _studentRepository, _gradeRepository))
+            if (!classToUpdate.AddStudent(studentToAdd.Id, _assignmentRepository, _studentRepository, _gradeRepository, _classRepository))
             {
                 Console.WriteLine("Student is already enrolled in this class. Press any key to return.");
             }

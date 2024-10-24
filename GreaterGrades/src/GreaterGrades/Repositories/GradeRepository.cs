@@ -25,7 +25,7 @@ namespace GreaterGrades.Repositories
 
         public Grade GetById(Guid id)
         {
-            return _grades.FirstOrDefault(g => g.Id == id);
+            return _grades.FirstOrDefault(g => g.Id == id)!;
         }
 
         public IEnumerable<Grade> GetByStudentId(Guid studentId)

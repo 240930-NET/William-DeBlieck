@@ -10,8 +10,6 @@ namespace GreaterGrades.Models
         public Guid Id { get; set; } = Guid.NewGuid();
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<Guid> Grades { get; set; } = new List<Guid>();
-        public List<Guid> Classes {get; set;} = new List<Guid>();
 
         public Student(string firstName, string lastName)
         {
@@ -19,23 +17,25 @@ namespace GreaterGrades.Models
             LastName = lastName;
         }
 
+        public List<Grade> GetGrades(IGradeRepository gradeRepo)
+        {
+            var grades = gradeRepo.GetAll()
+                .Where(g => g.StudentId == this.Id)
+                .ToList();
+
+            return grades;
+        }
+
         public bool AddGrade(Guid assignmentId, IGradeRepository gradeRepo, IStudentRepository studentRepo)
         {
             if (gradeRepo == null || studentRepo == null)
                 throw new ArgumentNullException("Repository cannot be null.");
-
-            // Ensure Grades list is initialized
-            if (Grades == null)
-                Grades = new List<Guid>();
 
             // Create a new Grade object for this student and the given assignment
             var newGrade = new Grade(Id, assignmentId);
 
             // Add the new grade to the repository
             gradeRepo.Add(newGrade);
-
-            // Add the assignmentId to the student's Grades list
-            Grades.Add(newGrade.Id);
 
             // Update the student in the repository
             studentRepo.Update(this);
@@ -57,9 +57,6 @@ namespace GreaterGrades.Models
             {
                 // Remove the grade from the repository
                 gradeRepo.Delete(gradeToRemove.Id);
-                
-                // Optionally remove the assignmentId from the student's Grades list
-                Grades.Remove(assignmentId); 
 
                 return true;
             }

@@ -9,15 +9,20 @@ namespace GreaterGrades.Models
     {
         public Guid Id { get; set; } = Guid.NewGuid();
         public string Subject { get; set; }
-        public List<Guid> Assignments { get; set; } = new List<Guid>();
         public List<Guid> Students { get; set; } = new List<Guid>();
-
         public Class(string subject)
         {
             Subject = subject;
         }
 
-        public bool AddStudent(Guid studentId, IStudentRepository studentRepo, IGradeRepository gradeRepo)
+        public List<Assignment> GetAssignments(IAssignmentRepository assignmentRepo) {
+            var assignments = assignmentRepo.GetAll()
+                .Where(a => a.ClassId == this.Id)
+                .ToList();
+            return assignments;
+        }
+
+        public bool AddStudent(Guid studentId, IAssignmentRepository assignmentRepo, IStudentRepository studentRepo, IGradeRepository gradeRepo, IClassRepository classRepo)
         {
             // Check if the student already exists in the class
             if (Students.Contains(studentId))
@@ -36,14 +41,15 @@ namespace GreaterGrades.Models
             Students.Add(studentId);
 
             // Add grades for all existing assignments
-            foreach (var assignmentId in Assignments)
+            foreach (var assignment in this.GetAssignments(assignmentRepo))
             {
                 // Call the AddGrade method on the student object
-                student.AddGrade(assignmentId, gradeRepo, studentRepo);
+                student.AddGrade(assignment.Id, gradeRepo, studentRepo);
             }
 
             // Optionally update the student repository if needed
             studentRepo.Update(student);
+            classRepo.Update(this);
 
             return true;
         }
@@ -68,11 +74,10 @@ namespace GreaterGrades.Models
         public bool AddAssignment(string assignmentName, int MaxScore, IAssignmentRepository assignmentRepo, IStudentRepository studentRepo, IClassRepository classRepo, IGradeRepository gradeRepo)
 
         {
-            Assignment newAssignment = new Assignment(assignmentName, MaxScore);
+            Assignment newAssignment = new Assignment(assignmentName, MaxScore, Id);
 
             assignmentRepo.Add(newAssignment);
 
-            Assignments.Add(newAssignment.Id);
 
             foreach (Guid studentId in Students){
                 Student iterStudent = studentRepo.GetById(studentId);
@@ -86,13 +91,10 @@ namespace GreaterGrades.Models
 
         public bool RemoveAssignment(Guid assignmentId, IAssignmentRepository assignmentRepo, IStudentRepository studentRepo, IClassRepository classRepo, IGradeRepository gradeRepo)
         {
-            if (!Assignments.Contains(assignmentId))
+            if (!this.GetAssignments(assignmentRepo).Contains(assignmentRepo.GetById(assignmentId)))
             {
                 return false; // Assignment not found
             }
-
-            // Remove the assignment from the class
-            Assignments.Remove(assignmentId);
 
             // Remove the grades linked to this assignment for each student
             foreach (var studentId in Students)
