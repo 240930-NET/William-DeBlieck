@@ -22,7 +22,7 @@ namespace GreaterGradesBackend.Services.Implementations
 
         public async Task<IEnumerable<GradeDto>> GetAllGradesAsync()
         {
-            var grades = _unitOfWork.Grades.GetAllAsync();
+            var grades = await _unitOfWork.Grades.GetAllAsync();
             return _mapper.Map<IEnumerable<GradeDto>>(grades);
         }
 

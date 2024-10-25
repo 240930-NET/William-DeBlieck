@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterGradesBackend.Infras
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterGradesBackend.Common", "GreaterGradesBackend.Common\GreaterGradesBackend.Common.csproj", "{F9972B54-36AA-494C-9487-10E7293B5876}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreaterGradesBackend.Tests", "GreaterGradesBackend.Tests\GreaterGradesBackend.Tests.csproj", "{19E4CC1E-91BF-4A25-8F12-C8B73E8B5D84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{F9972B54-36AA-494C-9487-10E7293B5876}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9972B54-36AA-494C-9487-10E7293B5876}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9972B54-36AA-494C-9487-10E7293B5876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19E4CC1E-91BF-4A25-8F12-C8B73E8B5D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19E4CC1E-91BF-4A25-8F12-C8B73E8B5D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19E4CC1E-91BF-4A25-8F12-C8B73E8B5D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19E4CC1E-91BF-4A25-8F12-C8B73E8B5D84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

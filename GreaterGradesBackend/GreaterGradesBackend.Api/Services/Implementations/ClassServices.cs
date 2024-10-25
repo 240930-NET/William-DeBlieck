@@ -119,6 +119,7 @@ namespace GreaterGradesBackend.Services.Implementations
             if (classEntity.Students.Contains(user))
             {
                 classEntity.Students.Remove(user);
+                user.Classes.Remove(classEntity);
 
                 foreach (var assignment in classEntity.Assignments)
                 {

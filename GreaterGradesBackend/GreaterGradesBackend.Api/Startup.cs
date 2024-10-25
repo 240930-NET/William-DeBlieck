@@ -68,7 +68,7 @@ namespace GreaterGradesBackend.Api
             })
             .AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = true;
+                x.RequireHttpsMetadata = false;
                 x.SaveToken = true;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -116,7 +116,7 @@ namespace GreaterGradesBackend.Api
 
             dbContext.Database.Migrate();
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

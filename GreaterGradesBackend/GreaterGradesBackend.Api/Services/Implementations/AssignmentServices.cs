@@ -42,27 +42,33 @@ namespace GreaterGradesBackend.Services.Implementations
         {
             var assignment = _mapper.Map<Assignment>(createAssignmentDto);
             
+            // Save the assignment first to ensure AssignmentId is generated
             await _unitOfWork.Assignments.AddAsync(assignment);
+            await _unitOfWork.CompleteAsync(); // Save changes to get AssignmentId
 
             var classEntity = await _unitOfWork.Classes.GetClassWithDetailsAsync(assignment.ClassId);
 
+            // Now add grades for each student, using the valid AssignmentId
             foreach (User student in classEntity.Students)
             {
                 var grade = new Grade
                 {
                     User = student,
-                    AssignmentId = assignment.AssignmentId,
+                    AssignmentId = assignment.AssignmentId, // Now has a valid ID
                     Score = 0,
                     GradingStatus = GradeStatus.NotGraded
                 };
 
+                assignment.Grades.Add(grade);
                 await _unitOfWork.Grades.AddAsync(grade);
             }
 
+            // Save grades and any remaining changes
             await _unitOfWork.CompleteAsync();
 
             return _mapper.Map<AssignmentDto>(assignment);
         }
+
 
 
         public async Task<bool> UpdateAssignmentAsync(int assignmentId, UpdateAssignmentDto updateAssignmentDto)

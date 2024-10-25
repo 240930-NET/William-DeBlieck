@@ -30,6 +30,16 @@ namespace GreaterGradesBackend.Infrastructure
                     sc => sc.HasOne<Class>().WithMany().HasForeignKey("ClassId"),
                     sc => sc.HasOne<User>().WithMany().HasForeignKey("UserId")
                 );
+            
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.User)
+                .WithMany(u => u.Grades)
+                .HasForeignKey(g => g.UserId);
+
+            modelBuilder.Entity<Grade>()
+                .HasOne(g => g.Assignment)
+                .WithMany(a => a.Grades)
+                .HasForeignKey(g => g.AssignmentId);
         }
 
     }

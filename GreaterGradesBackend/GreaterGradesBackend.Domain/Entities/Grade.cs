@@ -12,11 +12,8 @@ namespace GreaterGradesBackend.Domain.Entities
         public int GradeId { get; set; }
 
         [Required]
+        public int UserId { get; set; }
         public User User { get; set; }
-
-
-        [NotMapped]
-        public int UserId => User.UserId;
 
         [Required]
         public int AssignmentId { get; set; }

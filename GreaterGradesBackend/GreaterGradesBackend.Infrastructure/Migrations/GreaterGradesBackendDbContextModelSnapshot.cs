@@ -79,14 +79,14 @@ namespace GreaterGradesBackend.Infrastructure.Migrations
                     b.Property<int>("Score")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("GradeId");
 
                     b.HasIndex("AssignmentId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Grades");
                 });
@@ -164,7 +164,7 @@ namespace GreaterGradesBackend.Infrastructure.Migrations
 
                     b.HasOne("GreaterGradesBackend.Domain.Entities.User", "User")
                         .WithMany("Grades")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
