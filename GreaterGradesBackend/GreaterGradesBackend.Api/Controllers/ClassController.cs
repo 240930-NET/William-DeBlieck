@@ -100,5 +100,28 @@ namespace GreaterGradesBackend.Api.Controllers
             return NoContent();
         }
 
+        [HttpPost("{id}/teachers/{teacherId}")]
+        public async Task<IActionResult> AddTeacherToClass(int id, int teacherId)
+        {
+            var result = await _classService.AddTeacherToClassAsync(id, teacherId);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}/teachers/{teacherId}")]
+        public async Task<IActionResult> RemoveTeacherFromClass(int id, int teacherId)
+        {
+            var result = await _classService.RemoveTeacherFromClassAsync(id, teacherId);
+            if (!result)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
     }
 }

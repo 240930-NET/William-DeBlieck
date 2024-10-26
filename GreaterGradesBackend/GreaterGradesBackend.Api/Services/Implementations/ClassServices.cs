@@ -86,6 +86,7 @@ namespace GreaterGradesBackend.Services.Implementations
             if (!classEntity.Students.Contains(user))
             {
                 classEntity.Students.Add(user);
+                user.Classes.Add(classEntity);
                 foreach (Assignment assignment in classEntity.Assignments)
                 {
                     var grade = new Grade
@@ -100,6 +101,45 @@ namespace GreaterGradesBackend.Services.Implementations
                     // Add the new grade to the UnitOfWork
                     await _unitOfWork.Grades.AddAsync(grade);
                 }
+                await _unitOfWork.CompleteAsync();
+            }
+
+            return true;
+        }
+        public async Task<bool> AddTeacherToClassAsync(int classId, int userId)
+        {
+            var classEntity = await _unitOfWork.Classes.GetClassWithDetailsAsync(classId);
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
+            
+            if (classEntity == null || user == null)
+            {
+                return false;
+            }
+
+            if (!classEntity.Teachers.Contains(user))
+            {
+                classEntity.Teachers.Add(user);
+                user.TaughtClasses.Add(classEntity);
+                await _unitOfWork.CompleteAsync();
+            }
+
+            return true;
+        }
+
+        public async Task<bool> RemoveTeacherFromClassAsync(int classId, int userId)
+        {
+            var classEntity = await _unitOfWork.Classes.GetClassWithDetailsAsync(classId);
+            var user = await _unitOfWork.Users.GetByIdAsync(userId);
+            
+            if (classEntity == null || user == null)
+            {
+                return false;
+            }
+
+            if (classEntity.Teachers.Contains(user))
+            {
+                classEntity.Teachers.Remove(user);
+                user.TaughtClasses.Remove(classEntity);
                 await _unitOfWork.CompleteAsync();
             }
 

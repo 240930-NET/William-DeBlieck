@@ -3,6 +3,7 @@ using GreaterGradesBackend.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreaterGradesBackend.Infrastructure.Migrations
 {
     [DbContext(typeof(GreaterGradesBackendDbContext))]
-    partial class GreaterGradesBackendDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026200216_Teachers")]
+    partial class Teachers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

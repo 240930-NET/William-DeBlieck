@@ -11,8 +11,11 @@ namespace GreaterGradesBackend.Services.Interfaces
         Task<ClassDto> GetClassByIdAsync(int classId);
         
         Task<ClassDto> CreateClassAsync(CreateClassDto createClassDto);
-        Task<bool> RemoveStudentFromClassAsync(int classId, int studentId);
-        Task<bool> AddStudentToClassAsync(int classId, int studentId);
+        Task<bool> RemoveStudentFromClassAsync(int classId, int userId);
+        Task<bool> AddStudentToClassAsync(int classId, int userId);
+
+        Task<bool> RemoveTeacherFromClassAsync(int classId, int userId);
+        Task<bool> AddTeacherToClassAsync(int classId, int userId);
         
         Task<bool> UpdateClassAsync(int classId, UpdateClassDto updateClassDto);
         

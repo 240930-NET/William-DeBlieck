@@ -16,12 +16,14 @@ namespace GreaterGradesBackend.Domain.Entities
         public string Subject { get; set; }
 
         public ICollection<User> Students { get; set; }
+        public ICollection<User> Teachers { get; set; }
 
         public ICollection<Assignment> Assignments { get; set; }
 
         public Class()
         {
             Students = new HashSet<User>();
+            Teachers = new HashSet<User>();
             Assignments = new HashSet<Assignment>();
         }
     }

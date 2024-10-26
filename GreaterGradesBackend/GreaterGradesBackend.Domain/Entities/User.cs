@@ -32,9 +32,12 @@ namespace GreaterGradesBackend.Domain.Entities
 
         public ICollection<Class> Classes { get; set; }
         public ICollection<Grade> Grades { get; set; }
+        public ICollection<Class> TaughtClasses { get; set;}
 
         [NotMapped] 
         public IEnumerable<int> ClassIds => Classes.Select(c => c.ClassId);
+        [NotMapped]
+        public IEnumerable<int> TaughtClassIds => TaughtClasses.Select(c => c.ClassId);
         
         [NotMapped] 
         public IEnumerable<int> GradeIds => Grades.Select(g => g.GradeId);
@@ -42,6 +45,7 @@ namespace GreaterGradesBackend.Domain.Entities
         public User()
         {
             Role = "Student"; // Default role
+            TaughtClasses = new HashSet<Class>();
             Classes = new HashSet<Class>();
             Grades = new HashSet<Grade>();
         }
